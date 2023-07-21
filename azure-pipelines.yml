@@ -35,12 +35,9 @@ stages:
             projects: '**/*.sln'
             arguments: '--no-restore --configuration release'
         - task: DotNetCoreCLI@2
-          displayName: 'Publish the Polly project'
           inputs:
             command: 'publish'
             publishWebProjects: false
             projects: '**/*.sln'
-            arguments: 'arguments: ''--no-build --configuration Release --output $(Build.ArtifactStagingDirectory)/Release'
-        - task: PublishBuildArtifacts@1
-          displayName: 'Publish Artifact: drop'
-          condition: succeeded()
+            
+        
