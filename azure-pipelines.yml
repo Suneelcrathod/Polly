@@ -37,7 +37,5 @@ stages:
         - task: DotNetCoreCLI@2
           inputs:
             command: 'publish'
-            publishWebProjects: false
-            projects: '**/*.sln'
-            
+            publishWebProjects: true
         
