@@ -10,30 +10,35 @@ stages:
          vmImage: windows-latest
         steps:
         - task: UseDotNet@2
+          displayName: 'SDK'
           inputs:
             packageType: 'sdk'
             version: '7.0.306'
         - task: NuGetToolInstaller@1
+          displayName: 'NuGet Tool '
           inputs:
             versionSpec:
         - task: NuGetCommand@2
+          displayName: 'NuGet Restore'
           inputs:
             command: 'restore'
             restoreSolution: '**/*.sln'
         - task: DotNetCoreCLI@2
+          displayName: 'Restore Polly project'
           inputs:
             command: 'restore'
             projects: '**/*.sln'
         - task: DotNetCoreCLI@2
+          displayName: 'Build the Polly project'
           inputs:
             command: 'build'
             projects: '**/*.sln'
         - task: DotNetCoreCLI@2
+          displayName: 'Publish the Polly project'
           inputs:
             command: 'publish'
             publishWebProjects: false
             projects: '**/*.sln'
-            arguments: '--no-build --configuration Release --output $(Build.ArtifactStagingDirectory)/Release'
             zipAfterPublish: true
         - task: PublishBuildArtifacts@1
           displayName: 'Publish Artifact: drop'
