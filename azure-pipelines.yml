@@ -34,11 +34,8 @@ stages:
             command: 'build'
             projects: '**/*.sln'
             arguments: '--no-restore --configuration release'
-        - task: DotNetCoreCLI@2
+        - task: PublishBuildArtifacts@1
           inputs:
-            command: 'publish'
-            publishWebProjects: false
-            projects: '**/*.sln'
-            zipAfterPublish: true
-            
-        
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            condition: succeeded()
